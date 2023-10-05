@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -37,10 +38,18 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        do {
+            $skywayId = 'SkyWay-' . Str::random(20);
+            if (!User::where('skyway_id', $skywayId)->exists()) {
+                break;
+            }
+        } while (true);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'skyway_id' => $skywayId,
         ]);
 
         event(new Registered($user));

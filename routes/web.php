@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MedicalExamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -34,14 +35,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+    Route::get(
+        '/test',
+        [UserController::class, 'show']
+    );
+    Route::post('medical-exams', [MedicalExamController::class, 'store']);
+
+
+    Route::get('/skyway', [MedicalExamController::class, 'showSkyway']);
+
 });
-
-
-Route::get(
-    '/test',
-    [UserController::class, 'show']
-);
-
 
 
 

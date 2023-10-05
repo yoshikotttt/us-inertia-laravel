@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    //skyway-keyの参照を追加
+    'skyway' => [
+        'api_key' => env('SKYWAY_API_KEY'),
+    ],
+
 ];
