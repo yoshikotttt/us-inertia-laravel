@@ -10,7 +10,8 @@ class UserController extends Controller
 {
     public function show()
     {
-        $user = User::first();
+
+        $user = auth()->user();
         return Inertia::render('TestPage',['user' => $user]);
     }
 }

@@ -77,7 +77,7 @@ class MedicalExamController extends Controller
         $skywayApiKey = config('services.skyway.api_key');
         $skywayId = auth()->user()->skyway_id;
 
-        return Inertia::render('SkyWay', ['skywayApiKey' => $skywayApiKey, 'skyway_id' => $skywayId]);
+        return Inertia::render('SkyWay', ['skywayApiKey' => $skywayApiKey, 'skywayId' => $skywayId]);
     }
 
 }

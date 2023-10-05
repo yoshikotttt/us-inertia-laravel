@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "../../../src/assets/styles/test.module.css";
 import { useForm } from "react-hook-form";
-import { InertiaApp } from "@inertiajs/inertia-react";
+import { createInertiaApp } from "@inertiajs/inertia-react";
+
 
 const TestPage = ({ user }) => {
     const {
@@ -9,28 +10,25 @@ const TestPage = ({ user }) => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        name: "",
-        age: "",
-        gender: "",
-        chief_complaint: "",
-        medical_history: "",
-        vitals: "",
+        defaultValues: {
+            name: "",
+            age: "",
+            gender: "",
+            chief_complaint: "",
+            medical_history: "",
+            vitals: "",
+        },
     });
 
     const onSubmit = (data) => {
-        // フォームデータを処理するための form() 関数を取得します。
-        const form = useForm({
-            name: data.name,
-            age: data.age,
-            gender: data.gender,
-            chief_complaint: data.chief_complaint,
-            medical_history: data.medical_history,
-            vitals: data.vitals,
-        });
+        console.log("form being sent:", data);
 
-        // フォームデータを保存します。
-        form.save("/medical-exams", {
-            redirectTo: "/medical-exams",
+        // フォームデータをサーバーに送信
+        createInertiaApp.post("/medical-exams", data, {
+            onSuccess: () => {
+                // レスポンス成功時の処理（例：リダイレクト）
+                Inertia.visit("/medical-exams");
+            },
         });
     };
 
@@ -40,7 +38,7 @@ const TestPage = ({ user }) => {
             <p>Reactだよー!!</p>
             <p>最初の登録は「{user.name}」さん!!</p>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <input
                     {...register("age", { required: true })}
                     placeholder="Age"

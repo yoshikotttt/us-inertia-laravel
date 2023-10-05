@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
         ]);
 
         do {
-            $skywayId = 'SkyWay-' . Str::random(20);
+            $skywayId = Str::random(16);
             if (!User::where('skyway_id', $skywayId)->exists()) {
                 break;
             }
