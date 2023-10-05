@@ -17,7 +17,7 @@
     @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
     @inertiaHead
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+    {{-- <script src="https://cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script> --}}
 </head>
 
 <body class="font-sans antialiased">

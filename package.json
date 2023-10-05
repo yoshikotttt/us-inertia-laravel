@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@inertiajs/inertia-react": "^0.8.1",
-        "react-hook-form": "^7.47.0"
+        "react-hook-form": "^7.47.0",
+        "skyway-js": "^4.4.5"
     }
 }

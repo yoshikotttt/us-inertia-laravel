@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from "react";
+import Peer from "skyway-js";
+
 
 const MedicalExamVideo = ({ exam, skywayApiKey, skywayId }) => {
     const myVideoRef = useRef(null);
@@ -9,14 +11,20 @@ const MedicalExamVideo = ({ exam, skywayApiKey, skywayId }) => {
     let peer;
 
     useEffect(() => {
-        peerRef.current = new Peer({
+        // peerRef.current = new Peer({
+        //     key: skywayApiKey,
+        //     id: skywayId,
+        //     debug: 3,
+        // });
+
+        peerRef.current = new Peer(skywayId, {
             key: skywayApiKey,
-            id: skywayId,
             debug: 3,
         });
-
+     
         peerRef.current.on("open", () => {
-            // あなたのIDを表示
+            console.log("Peer is open. My Peer ID:", skywayId);
+             console.log("Peer is open. My Peer ID:", peerRef.current.id);
         });
 
         navigator.mediaDevices
@@ -56,6 +64,7 @@ const MedicalExamVideo = ({ exam, skywayApiKey, skywayId }) => {
     const handleMakeCall = () => {
         const theirID = document.getElementById("their-id").value;
         const mediaConnection = peerRef.current.call(theirID, localStream);
+        console.log('me',mediaConnection);
         mediaConnection.on("stream", (stream) => {
             const videoElm = theirVideoRef.current;
             videoElm.srcObject = stream;
@@ -79,6 +88,7 @@ const MedicalExamVideo = ({ exam, skywayApiKey, skywayId }) => {
                 <video
                     ref={myVideoRef}
                     className="medical-exam-video__my-video"
+                    width={200}
                 ></video>
                 <p id="my-id" className="medical-exam-video__my-id"></p>
                 <input
