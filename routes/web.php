@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
         [UserController::class, 'show']
     );
     Route::post('medical-exams', [MedicalExamController::class, 'store']);
+    Route::delete('/test/{id}', [MedicalExamController::class, 'destroy']);
 
 
     Route::get('/skyway', [MedicalExamController::class, 'showSkyway']);
