@@ -13,7 +13,7 @@ class MedicalExamController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**
@@ -69,7 +69,9 @@ class MedicalExamController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $medicalData = MedicalExam::findOrFail($id);
+
+        $medicalData->delete();
     }
 
     public function showSkyway()
