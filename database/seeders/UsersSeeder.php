@@ -2,47 +2,46 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Str;
 
 class UsersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
-        $users = [
-            [
-                'name' => 'はちわれ',
-                'email' => 'hachi@example.com',
-                'skyway_id' => 'SkyWay-12345678901234567890',
-                'password' => '12345678',
-                
-            ],
-            [
-                'name' => 'ねこ',
-                'email' => 'neko@example.com',
-                'skyway_id' => 'SkyWay-11111111111111111111',
-                'password' => '12345678',
-            ],
-            [
-                'name' => 'ぽち',
-                'email' => 'pochi@example.com',
-                'skyway_id' => 'SkyWay-22222222222222222222',
-                'password' => '12345678',
-            ],
-            [
-                'name' => 'うさぎ',
-                'email' => 'usagi@example.com',
-                'skyway_id' => 'SkyWay-33333333333333333333',
-                'password' => '12345678',
-            ]
-            ];
-        foreach ($users as $user) {
-            DB::table('users')->insert($user);
+        // 1番目の人：依頼医
+        User::create([
+            'name' => 'RequestDoctor1',
+            'email' => 'requestdoc1@example.com',
+            'password' => Hash::make('password'),
+            'skyway_id' => Str::random(16),
+            'role' => 0, // 0 for request doctor, 1 for accept doctor
+        ]);
+
+        // 受託医
+        $regions = ['北海道', '東北', '関東', '中部', '関西', '中国四国', '九州'];
+        $areas = ['上腹部', '下腹部', '心臓'];
+
+        for ($i = 2; $i <= 8; $i++) {
+            User::create([
+                'name' => "AcceptDoctor$i",
+                'email' => "acceptdoc$i@example.com",
+                'password' => Hash::make('password'),
+                'skyway_id' => Str::random(16),
+                'role' => 1,
+                'qualification' => ($i % 2 === 0) ? '専門医' : '検査士',
+                'qualification_year' => rand(2000, 2022),
+                'region' => $regions[rand(0, 6)],
+                'areas' => json_encode(array_slice($areas, 0, rand(1, 3))),
+                'status' => rand(0, 1) === 1
+            ]);
+        }
     }
-}
 }

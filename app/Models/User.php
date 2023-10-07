@@ -17,12 +17,20 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
         'name',
         'email',
         'password',
         'skyway_id',
+        'role',
+        'qualification',
+        'qualification_year',
+        'region',
+        'areas',
+        'status',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,5 +50,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'areas' => 'array',  // これを追加、自動的に配列として取得、JSON形式の文字列として保存
     ];
 }
