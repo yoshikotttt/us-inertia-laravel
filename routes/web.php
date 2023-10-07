@@ -36,12 +36,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/profile-detail/edit', [UserController::class, 'edit'])->name('profile_detail.edit');
+    Route::put('/profile-detail/update', [UserController::class, 'update'])->name('profile_detail.update');
 
-    Route::get(
-        '/test',
-        [UserController::class, 'show']
-    );
-    Route::post('medical-exams', [MedicalExamController::class, 'store']);
+
+    Route::get('/test', [UserController::class, 'show']);
+    Route::post('/medical-exams', [MedicalExamController::class, 'store']);
     Route::delete('/test/{id}', [MedicalExamController::class, 'destroy']);
 
 

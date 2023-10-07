@@ -34,8 +34,14 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:'.User::class,
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => 'required|integer',
+            'qualification' => 'required_if:role,1|string|nullable',
+            'qualification_year' => 'required_if:role,1|integer|nullable',
+            'region' => 'required_if:role,1|string|nullable',
+            'areas' => 'required_if:role,1|array|min:1|max:5|nullable',
+            'status' => 'boolean',
         ]);
 
         do {
@@ -50,6 +56,12 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'skyway_id' => $skywayId,
+            'role' => $request->role,
+            'qualification' => $request->qualification,
+            'qualification_year' => $request->qualification_year,
+            'region' => $request->region,
+            'areas' => json_encode($request->areas),
+            'status' => $request->has('status'),
         ]);
 
         event(new Registered($user));
@@ -58,4 +70,5 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
 }
