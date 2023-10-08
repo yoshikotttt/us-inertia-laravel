@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MedicalExamController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
@@ -55,9 +56,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', function () {
         return Inertia::render('HomePage', [
-            'user' => Auth::user()->only(['id', 'name', 'email']) // 認証されたユーザーの情報を渡す
+            'user' => Auth::user()->only(['id', 'name', 'email','role']) // 認証されたユーザーの情報を渡す
         ]);
     })->name('home');
+
+    Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 
 });
