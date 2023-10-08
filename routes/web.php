@@ -4,6 +4,7 @@ use App\Http\Controllers\MedicalExamController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -41,11 +42,23 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/test', [UserController::class, 'show']);
-    Route::post('/medical-exams', [MedicalExamController::class, 'store']);
+    Route::post('/medical-exams', [MedicalExamController::class, 'store'])->name('medical-exams.store');
     Route::delete('/test/{id}', [MedicalExamController::class, 'destroy']);
 
 
     Route::get('/skyway', [MedicalExamController::class, 'showSkyway']);
+
+    Route::get('/medical-exam', function () {
+        return Inertia::render('ExamDetailEntryPage');
+    });
+
+
+    Route::get('/home', function () {
+        return Inertia::render('HomePage', [
+            'user' => Auth::user()->only(['id', 'name', 'email']) // 認証されたユーザーの情報を渡す
+        ]);
+    })->name('home');
+
 
 });
 

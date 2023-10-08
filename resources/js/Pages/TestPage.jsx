@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../../../src/assets/styles/test.module.css";
-import { useForm } from "@inertiajs/inertia-react";
+import { useForm } from "@inertiajs/react";
 import { Inertia } from "@inertiajs/inertia";
 
 
