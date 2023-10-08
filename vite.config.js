@@ -25,4 +25,11 @@ export default defineConfig({
             importName: "styles",
         },
     },
+
+    // 絶対パスでコンポーネントをインポートできるようにする
+    resolve: {
+        alias: {
+            "@": "/resources/js", // プロジェクトのディレクトリ構造に合わせて変更してください
+        },
+    },
 });
