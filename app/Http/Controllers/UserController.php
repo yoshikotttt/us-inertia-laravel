@@ -32,7 +32,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        Log::info($request->all());
+        // Log::info($request->all());
 
         $data = $request->validate([
             'name' => 'required|string|max:255',

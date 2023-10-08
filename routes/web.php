@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MedicalExamController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
@@ -54,15 +55,17 @@ Route::middleware('auth')->group(function () {
     });
 
 
-    Route::get('/home', function () {
-        return Inertia::render('HomePage', [
-            'user' => Auth::user()->only(['id', 'name', 'email','role']) // 認証されたユーザーの情報を渡す
-        ]);
-    })->name('home');
+    // Route::get('/home', function () {
+    //     return Inertia::render('HomePage', [
+    //         'user' => Auth::user()->only(['id', 'name', 'email', 'role']) // 認証されたユーザーの情報を渡す
+    //     ]);
+    // })->name('home');
+
+    Route::get('/home', [NotificationController::class, 'index'])->name('home');
+
 
     Route::get('/search', [SearchController::class, 'index'])->name('search');
-
-
+    Route::post('/search', [NotificationController::class, 'store'])->name('search-request');
 });
 
 

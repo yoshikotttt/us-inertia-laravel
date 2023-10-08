@@ -39,7 +39,7 @@ class UsersSeeder extends Seeder
                 'qualification' => ($i % 2 === 0) ? '専門医' : '検査士',
                 'qualification_year' => rand(2000, 2022),
                 'region' => $regions[rand(0, 6)],
-                'areas' => json_encode(array_slice($areas, 0, rand(1, 3))),
+                'areas' => json_encode(array_slice($areas, 0, rand(1, 3)), JSON_UNESCAPED_UNICODE),
                 'status' => rand(0, 1) === 1
             ]);
         }
