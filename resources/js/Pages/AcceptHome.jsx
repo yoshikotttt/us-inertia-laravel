@@ -1,17 +1,17 @@
 import React from 'react'
-import { Switch } from "antd";
+// import { Switch } from "antd";
 
 const AcceptHome = ({ notifications }) => {
-  console.log(notifications)
-    const onChange = (checked) => {
-        console.log(`switch to ${checked}`);
-    };
+//   console.log(notifications)
+    // const onChange = (checked) => {
+    //     console.log(`switch to ${checked}`);
+    // };
    return (
        <>
-           <div className="mb-4 flex justify-between items-center">
+           {/* <div className="mb-4 flex justify-between items-center">
                <p className="font-bold text-xl">アクティブ</p>
                <Switch defaultChecked onChange={onChange} />
-           </div>
+           </div> */}
            <div className="bg-white p-4 rounded shadow-md">
                {notifications && notifications.length > 0 ? (
                    <div className="notifications">
