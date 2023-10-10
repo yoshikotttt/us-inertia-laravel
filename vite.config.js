@@ -18,6 +18,8 @@ export default defineConfig({
         },
     },
 
+    base: "/echo_st1/build/",
+
     // SCSS モジュールの設定
     scss: {
         modules: {
